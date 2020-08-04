@@ -1,4 +1,5 @@
 ﻿using CarClassLibrary;
+using CarShop.UI;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CarShopConsoleApp
 {
@@ -15,80 +17,97 @@ namespace CarShopConsoleApp
     {
         static void Main(string[] args)
         {
-            Store store = new Store();
 
-            
-            
-            Console.WriteLine("Welcome to the car store. First you must create some car inventory. Then you may add some cars to the shopping cart. Finally you may checkout wich will give you a total value of the shopping cart.");
+            Console.WriteLine("Do you want to continue with the Console App then hit (1), else hit any key for the WinForms App");
 
-            int action = chooseAction();
+            string ChoiceOfApp = Console.ReadKey().ToString();
 
-            while (action != 0)
+            if (ChoiceOfApp != "1")
             {
-                switch (action)
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new CarShopUI());
+            }
+            else if (ChoiceOfApp == "1")
+            {
+
+
+
+                Store store = new Store();
+
+            
+            
+                Console.WriteLine("Welcome to the car store. First you must create some car inventory. Then you may add some cars to the shopping cart. Finally you may checkout wich will give you a total value of the shopping cart.");
+
+                int action = chooseAction();
+
+                while (action != 0)
                 {
-                    // Add to inventory
-                    case 1:
-                        Console.WriteLine("OK, you want to add a car to your inventory.");
-                        string carMake = "";
-                        string carModel = "";
-                        decimal carPrice = 10000M;
+                    switch (action)
+                    {
+                        // Add to inventory
+                        case 1:
+                            Console.WriteLine("OK, you want to add a car to your inventory.");
+                            string carMake = "";
+                            string carModel = "";
+                            decimal carPrice = 10000M;
 
-                        Console.WriteLine("What is the Brand you want to choose?");
-                        carMake = Console.ReadLine();
+                            Console.WriteLine("What is the Brand you want to choose?");
+                            carMake = Console.ReadLine();
 
-                        Console.WriteLine("What is the Model you want to choose?");
-                        carModel = Console.ReadLine();
+                            Console.WriteLine("What is the Model you want to choose?");
+                            carModel = Console.ReadLine();
 
-                        Console.WriteLine("What is the price of the car?");
-                        carPrice = int.Parse(Console.ReadLine());
+                            Console.WriteLine("What is the price of the car?");
+                            carPrice = int.Parse(Console.ReadLine());
 
-                        Car newCar = new Car(carMake, carModel, carPrice);
-                        store.CarList.Add(newCar);
+                            Car newCar = new Car(carMake, carModel, carPrice);
+                            store.CarList.Add(newCar);
 
-                        printInventory(store, store.CarList);
+                            printInventory(store, store.CarList);
 
-                        break;
+                            break;
 
-                    // Add to cart    
-                    case 2:
-                        printInventory(store, store.CarList);
+                        // Add to cart    
+                        case 2:
+                            printInventory(store, store.CarList);
 
-                        Console.WriteLine("Which car do you want to add to your cart?");
+                            Console.WriteLine("Which car do you want to add to your cart?");
 
-                        string chosenLine = Console.ReadLine();
+                            string chosenLine = Console.ReadLine();
 
-                        int chosenCar = int.Parse(chosenLine);
+                            int chosenCar = int.Parse(chosenLine);
 
-                        store.ShoppingList.Add(store.CarList[chosenCar - 1]);
+                            store.ShoppingList.Add(store.CarList[chosenCar - 1]);
 
-                        Console.WriteLine("These are the cars in your cart:");
+                            Console.WriteLine("These are the cars in your cart:");
 
-                        printInventory(store, store.ShoppingList);
+                            printInventory(store, store.ShoppingList);
 
-                        break;
+                            break;
 
 
-                    // Checkout Add Prices to get a total
-                    case 3:
+                        // Checkout Add Prices to get a total
+                        case 3:
 
-                        Console.WriteLine("The cars you chose are:");
+                            Console.WriteLine("The cars you chose are:");
 
-                        printInventory(store, store.ShoppingList);
+                            printInventory(store, store.ShoppingList);
 
-                        decimal total = store.Checkout();
+                            decimal total = store.Checkout();
                         
-                        Console.WriteLine("The total value of the cars in you cart is: " + total.ToString());
+                            Console.WriteLine("The total value of the cars in you cart is: " + total.ToString());
 
-                        break;
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+
+                    action = chooseAction();
                 }
 
-                action = chooseAction();
             }
-
             
         }
 

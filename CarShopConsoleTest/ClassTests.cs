@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using CarClassLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -101,6 +103,7 @@ namespace CarShopConsoleTest
             car2.Price = 22400M;
 
             decimal expectedTotal = car1.Price + (2 * car2.Price);
+            int expectedCount = 0;
             //Act
             store.CarList.Add(car1);
             store.CarList.Add(car2);
@@ -110,10 +113,11 @@ namespace CarShopConsoleTest
             store.ShoppingList.Add(car2);
 
             var actualTotal = store.Checkout();
-            
+            var actualCount = store.ShoppingList.Count();
 
             //Assert
             Assert.AreEqual(expectedTotal, actualTotal);
+            Assert.AreEqual(expectedCount, actualCount);
         }
 
     }
