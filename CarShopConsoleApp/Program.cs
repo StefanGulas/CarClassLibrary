@@ -20,7 +20,8 @@ namespace CarShopConsoleApp
 
             Console.WriteLine("Do you want to continue with the Console App then hit (1), else hit any key for the WinForms App");
 
-            string ChoiceOfApp = Console.ReadKey().ToString();
+            string ChoiceOfApp = Console.ReadLine();
+           
 
             if (ChoiceOfApp != "1")
             {
