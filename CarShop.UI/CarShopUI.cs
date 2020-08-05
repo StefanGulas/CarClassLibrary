@@ -6,6 +6,9 @@ namespace CarShop.UI
 {
     public partial class CarShopUI : Form
     {
+       //CarShopLinqToSqlDataContext dc = new CarShopLinqToSqlDataContext();
+        
+
         Store myStore = new Store();
 
         BindingSource carInventoryBindingSource = new BindingSource();
@@ -16,6 +19,8 @@ namespace CarShop.UI
         public CarShopUI()
         {
             InitializeComponent();
+
+           //if (dc.DatabaseExists())  
         }
 
         private void CreateCarButton_Click(object sender, EventArgs e)

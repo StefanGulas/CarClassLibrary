@@ -18,6 +18,7 @@ namespace CarClassLibrary
         }
         public Car (string make, string model, decimal price)
         {
+            Id = 1;
             Make = make;
             Model = model;
             Price = price;
